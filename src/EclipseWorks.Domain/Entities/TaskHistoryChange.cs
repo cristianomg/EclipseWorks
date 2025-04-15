@@ -2,10 +2,16 @@
 {
     public class TaskHistoryChange : BaseEntity
     {
-        public int HistoryId { get; set; }
-        public string Field { get; set; }
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
-        public virtual TaskHistory History { get; set; }
+        public TaskHistoryChange(string field, string? oldValue, string newValue)
+        {
+            Field = field;
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+        public int HistoryId { get; private set; }
+        public string Field { get; private set; }
+        public string? OldValue { get; private set; }
+        public string NewValue { get; private set; }
+        public virtual TaskHistory? History { get; private set; }
     }
 }

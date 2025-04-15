@@ -4,6 +4,7 @@ using EclipseWorks.Domain.Entities;
 using EclipseWorks.Domain.Enums;
 using EclipseWorks.Domain.Exceptions;
 using EclipseWorks.Domain.Repositories;
+using MediatR;
 using Moq;
 
 namespace EclipseWorks.Application.Tests.Commands
@@ -12,13 +13,16 @@ namespace EclipseWorks.Application.Tests.Commands
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly Mock<ITaskRepository> _taskRepositoryMock;
+        private readonly Mock<IMediator> _mediatorMock;
         private readonly UpdateTaskCommandHandler _handler;
 
         public UpdateTaskCommandHandlerTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
             _taskRepositoryMock = new Mock<ITaskRepository>();
-            _handler = new UpdateTaskCommandHandler(_userRepositoryMock.Object, _taskRepositoryMock.Object);
+            _mediatorMock = new Mock<IMediator>();
+
+            _handler = new UpdateTaskCommandHandler(_userRepositoryMock.Object, _taskRepositoryMock.Object, _mediatorMock.Object);
         }
         [Fact]
         public async Task Handle_UserNotFound_Throws_NotFoundException()

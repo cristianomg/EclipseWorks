@@ -16,6 +16,7 @@ namespace EclipseWorks.Api.Extensions
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITaskHistoryRepository, TaskHistoryRepository>();
 
             return services;
         }
