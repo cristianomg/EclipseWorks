@@ -2,9 +2,9 @@
 
 namespace EclipseWorks.Domain.Entities
 {
-    public class Task : BaseEntity
+    public class Tasks : BaseEntity
     {
-        public Task(int projectId, string title, string description, DateTime dueDate, TaskPriority priority)
+        public Tasks(int projectId, string title, string description, DateTime dueDate, TaskPriority priority)
         {
             Title = title;
             Description = description;
