@@ -20,6 +20,7 @@ namespace EclipseWorks.Domain.Entities
         public TaskPriority Priority { get; set; }
         public TasksStatus Status { get; private set; }
         public virtual Project? Project { get; private set; }
+        public virtual List<TaskHistory> Histories { get; set; }
 
 
         public void Update(string? description, TasksStatus status, string userName)

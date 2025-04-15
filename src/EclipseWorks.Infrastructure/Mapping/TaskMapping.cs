@@ -45,7 +45,6 @@ namespace EclipseWorks.Infrastructure.Mapping
                   v => (TaskPriority)Enum.Parse(typeof(TaskPriority), v)
                 );
 
-
             builder.Property(x => x.CreatedAt)
               .HasColumnName("CREATED_AT")
               .HasColumnType("timestamp with time zone")
@@ -59,6 +58,12 @@ namespace EclipseWorks.Infrastructure.Mapping
             builder.HasOne(x => x.Project)
                 .WithMany(x => x.Tasks)
                 .HasForeignKey(x => x.ProjectId);
+
+            builder.HasMany(x => x.Histories)
+                .WithOne(x => x.Task)
+                .HasForeignKey(x => x.TaskId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
