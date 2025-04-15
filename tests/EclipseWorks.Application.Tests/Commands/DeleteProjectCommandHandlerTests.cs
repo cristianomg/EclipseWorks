@@ -44,7 +44,7 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
 
             //Act & Assert
             var exception = await Assert.ThrowsAsync<NotFoundException>(() => _handler.Handle(command, CancellationToken.None));
@@ -60,7 +60,7 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
             _projectRepositoryMock.Setup(x => x.GetById(command.ProjectId, x=>x.Tasks)).ReturnsAsync(new Project(2, "Test"));
 
             //Act & Assert
@@ -77,10 +77,10 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            var project = new Project(0, "Test");
+            var project = new Project(1, "Test");
             project.Tasks.Add(new Tasks(project.Id, "Test", "Test", DateTime.UtcNow, Domain.Enums.TaskPriority.Low));
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
             _projectRepositoryMock.Setup(x => x.GetById(command.ProjectId, x => x.Tasks)).ReturnsAsync(project);
 
             //Act & Assert
@@ -99,9 +99,9 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            var project = new Project(0, "Test");
+            var project = new Project(1, "Test");
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
             _projectRepositoryMock.Setup(x => x.GetById(command.ProjectId, x => x.Tasks)).ReturnsAsync(project);
 
             //Act & Assert

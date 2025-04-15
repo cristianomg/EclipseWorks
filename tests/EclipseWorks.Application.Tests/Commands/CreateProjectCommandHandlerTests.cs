@@ -44,7 +44,7 @@ namespace EclipseWorks.Application.Tests.Commands
             };
 
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
             _projectRepositoryMock.Setup(x => x.Any(x => x.Name == command.Name)).ReturnsAsync(true);
 
             //Act & Assert
@@ -62,7 +62,7 @@ namespace EclipseWorks.Application.Tests.Commands
             };
 
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Domain.Enums.Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
             _projectRepositoryMock.Setup(x => x.Any(x => x.Name == command.Name)).ReturnsAsync(false);
 
             //Act & Assert

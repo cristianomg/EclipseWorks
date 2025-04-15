@@ -48,7 +48,7 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Role.User));
 
             //Act & Assert
             var exception = await Assert.ThrowsAsync<NotFoundException>(() => _handler.Handle(command, CancellationToken.None));
@@ -67,7 +67,7 @@ namespace EclipseWorks.Application.Tests.Commands
             };
 
             Tasks task = new TaskProxy(new Project(2, "test"), "Test", "", DateTime.UtcNow, TaskPriority.Low);
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Role.User));
 
             _taskRepositoryMock.Setup(x => x.GetById(command.TaskId, x => x.Project)).ReturnsAsync(task);
 
@@ -88,10 +88,10 @@ namespace EclipseWorks.Application.Tests.Commands
                 UserId = 1
             };
 
-            var user = new User("test", Role.User);
+            var user = new User(1, "test", Role.User);
             Tasks task = new TaskProxy(new ProjectProxy(user, "test"), "Test", "", DateTime.UtcNow, TaskPriority.Low);
 
-            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User("Test User", Role.User));
+            _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Role.User));
             _taskRepositoryMock.Setup(x => x.GetById(command.TaskId, x => x.Project)).ReturnsAsync(task);
 
             //Act & Assert
