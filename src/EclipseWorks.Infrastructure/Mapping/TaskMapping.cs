@@ -45,6 +45,15 @@ namespace EclipseWorks.Infrastructure.Mapping
                   v => (TaskPriority)Enum.Parse(typeof(TaskPriority), v)
                 );
 
+            builder.Property(x => x.DueDate)
+                .IsRequired()
+                .HasColumnName("DUE_DATE")
+                .HasColumnType("timestamp with time zone");
+
+            builder.Property(x => x.ProjectId)
+                .HasColumnName("PROJECT_ID")
+                .IsRequired();
+
             builder.Property(x => x.CreatedAt)
               .HasColumnName("CREATED_AT")
               .HasColumnType("timestamp with time zone")
@@ -53,7 +62,7 @@ namespace EclipseWorks.Infrastructure.Mapping
             builder.Property(x => x.UpdatedAt)
               .HasColumnName("UPDATED_AT")
               .HasColumnType("timestamp with time zone")
-              .HasDefaultValueSql("CURRENT_TIMESTAMP");
+              .IsRequired(false);
 
             builder.HasOne(x => x.Project)
                 .WithMany(x => x.Tasks)

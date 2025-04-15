@@ -22,7 +22,6 @@ namespace EclipseWorks.Api.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-
         [HttpGet("{projectId}")] 
         public async Task<IActionResult> GetAllByProjectId([FromRoute] int projectId)
         {

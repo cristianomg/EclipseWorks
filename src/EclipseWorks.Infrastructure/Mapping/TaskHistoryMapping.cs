@@ -18,6 +18,10 @@ namespace EclipseWorks.Infrastructure.Mapping
                 .HasColumnName("ID")
                 .ValueGeneratedOnAdd();
 
+            builder.Property(x => x.TaskId)
+                .HasColumnName("TASK_ID")
+                .IsRequired();
+
             builder.Property(x => x.UpdatedByUser)
                 .IsRequired()
                 .ValueGeneratedNever()
@@ -32,7 +36,7 @@ namespace EclipseWorks.Infrastructure.Mapping
             builder.Property(x => x.UpdatedAt)
               .HasColumnName("UPDATED_AT")
               .HasColumnType("timestamp with time zone")
-              .HasDefaultValueSql("CURRENT_TIMESTAMP");
+              .IsRequired(false);
 
 
             builder.HasMany(x => x.Changes)

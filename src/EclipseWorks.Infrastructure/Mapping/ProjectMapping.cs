@@ -34,7 +34,7 @@ namespace EclipseWorks.Infrastructure.Mapping
             builder.Property(x=>x.UpdatedAt)
               .HasColumnName("UPDATED_AT")
               .HasColumnType("timestamp with time zone")
-              .HasDefaultValueSql("CURRENT_TIMESTAMP");
+              .IsRequired(false);
 
             builder.HasOne(x => x.User)
                 .WithMany()

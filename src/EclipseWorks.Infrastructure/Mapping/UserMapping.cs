@@ -1,4 +1,5 @@
 ﻿using EclipseWorks.Domain.Entities;
+using EclipseWorks.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,14 @@ namespace EclipseWorks.Infrastructure.Mapping
                 .HasColumnName("NAME")
                 .IsRequired();
 
+            builder.Property(x => x.Role)
+                .IsRequired()
+                .HasColumnName("ROLE")
+                .HasConversion(
+                  v => v.ToString(),
+                  v => (Role)Enum.Parse(typeof(Role), v)
+                );
+
             builder.Property(x => x.CreatedAt)
               .HasColumnName("CREATED_AT")
               .HasColumnType("timestamp with time zone")
@@ -30,7 +39,7 @@ namespace EclipseWorks.Infrastructure.Mapping
             builder.Property(x => x.UpdatedAt)
               .HasColumnName("UPDATED_AT")
               .HasColumnType("timestamp with time zone")
-              .HasDefaultValueSql("CURRENT_TIMESTAMP");
+              .IsRequired(false);
 
 
             builder.HasData(
