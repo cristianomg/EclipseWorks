@@ -23,6 +23,11 @@ namespace EclipseWorks.Application.Handlers.Commands
             var user = await _userRepository.GetById(request.UserId) ?? throw new NotFoundException("User not found.");
             var project = await _projectRepository.GetById(request.ProjectId, x=>x.Tasks) ?? throw new NotFoundException("Project not found.");
 
+            if (user.Id != project.UserId)
+            {
+                throw new ForbiddenException("You do not have permission to create task in this project.");
+            }
+
             var hasReachedTaskLimit = project.Tasks.Count() >= MAX_TASKS_PER_PROJECT;
 
             if (hasReachedTaskLimit)

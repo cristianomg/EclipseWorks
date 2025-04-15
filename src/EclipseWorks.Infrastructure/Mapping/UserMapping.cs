@@ -31,6 +31,15 @@ namespace EclipseWorks.Infrastructure.Mapping
               .HasColumnName("UPDATED_AT")
               .HasColumnType("timestamp with time zone")
               .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+
+            builder.HasData(
+                new User(1, "Usuario 1", Domain.Enums.Role.User),
+                new User(2, "Usuario 2", Domain.Enums.Role.User),
+                new User(3, "Usuario 3", Domain.Enums.Role.User),
+                new User(4, "Usuario 4", Domain.Enums.Role.User),
+                new User(5, "Usuario Gerente 1", Domain.Enums.Role.Manager)
+            );
         }
     }
 }

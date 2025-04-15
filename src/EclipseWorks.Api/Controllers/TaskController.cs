@@ -44,7 +44,7 @@ namespace EclipseWorks.Api.Controllers
 
             command.UserId = userId;
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return Created();
         }
@@ -66,7 +66,7 @@ namespace EclipseWorks.Api.Controllers
             };
 
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -86,7 +86,7 @@ namespace EclipseWorks.Api.Controllers
             command.TaskId = taskId;
             command.UserId = userId;
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return NoContent();
         }

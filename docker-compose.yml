@@ -9,14 +9,16 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=eclipseworks
-      - POSTGRES_USER=eclipseworks_user
+      - POSTGRES_PASSWORD=eclipse@works2025
+      - POSTGRES_USER=eclipseworks
       - POSTGRES_DB=eclipseworks
     networks:
       - localnet
   api: 
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=eclipseworks;Username=eclipseworks;Password=eclipse@works2025;Pooling=true;
     image: eclipse-api
     container_name: api
     ports:
@@ -30,3 +32,6 @@ services:
 networks:
   localnet:
     driver: bridge
+
+volumes:
+  pgdata:

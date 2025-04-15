@@ -4,8 +4,9 @@ namespace EclipseWorks.Domain.Entities
 {
     public class User : BaseEntity
     {
-        public User(string name, Role role)
+        public User(int id, string name, Role role)
         {
+            Id = id;
             Name = name;
             Role = role;
         }

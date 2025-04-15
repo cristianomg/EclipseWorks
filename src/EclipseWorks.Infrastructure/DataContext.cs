@@ -11,7 +11,6 @@ namespace EclipseWorks.Infrastructure
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-
         public DbSet<User> Users { get; private set; }
         public DbSet<Tasks> Tasks { get; private set; }
         public DbSet<Project> Projects { get; private set; }

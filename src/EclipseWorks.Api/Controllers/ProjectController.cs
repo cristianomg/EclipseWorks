@@ -43,7 +43,7 @@ namespace EclipseWorks.Api.Controllers
 
             command.UserId = userId;
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return Created();
         }
@@ -64,7 +64,7 @@ namespace EclipseWorks.Api.Controllers
                 ProjectId = projetId
             };
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return NoContent();
         }
