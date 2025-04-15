@@ -9,7 +9,7 @@
         }
         public int UserId { get; set; }
         public string Name { get; set; }
-        public virtual IEnumerable<Tasks> Tasks { get; private set; } = Enumerable.Empty<Tasks>();    
+        public virtual ICollection<Tasks> Tasks { get; private set; } = new List<Tasks>();  
         public virtual User? User { get; private set; }
     }
 }

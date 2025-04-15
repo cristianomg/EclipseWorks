@@ -20,7 +20,7 @@ namespace EclipseWorks.Application.Handlers.Commands
         public async Task Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetById(request.UserId) ?? throw new NotFoundException("User not found.");
-            var project = await _projectRepository.GetById(request.ProjectId, x=>x.Tasks) ?? throw new NotFoundException("Task not found.");
+            var project = await _projectRepository.GetById(request.ProjectId, x=>x.Tasks) ?? throw new NotFoundException("Project not found.");
 
 
             if (project.UserId != user.Id)

@@ -24,7 +24,7 @@ namespace EclipseWorks.Application.Handlers.Commands
 
             if (task.Project?.UserId != user.Id)
             {
-                throw new ForbiddenException("You do not have permission to delete this project.");
+                throw new ForbiddenException("You do not have permission to update this task.");
             }
 
             var newDescription = string.IsNullOrEmpty(request.Description) ? task.Description : request.Description;
