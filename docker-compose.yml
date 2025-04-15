@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=eclipseworks
+      - POSTGRES_USER=eclipseworks_user
+      - POSTGRES_DB=eclipseworks
+    networks:
+      - localnet
+  api: 
+    image: eclipse-api
+    container_name: api
+    ports:
+      - 8080:8080
+    build: ./src
+    networks:
+      - localnet
+    depends_on:
+      postgres:
+        condition: service_healthy
+networks:
+  localnet:
+    driver: bridge
