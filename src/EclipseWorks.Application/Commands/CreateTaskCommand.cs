@@ -1,9 +1,10 @@
-﻿using EclipseWorks.Domain.Enums;
+﻿using EclipseWorks.Application.CustomValidateAttributes;
+using EclipseWorks.Domain.Enums;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EclipseWorks.Application.Commands.Task
+namespace EclipseWorks.Application.Commands
 {
     public record CreateTaskCommand : IRequest
     {
@@ -12,12 +13,12 @@ namespace EclipseWorks.Application.Commands.Task
         [Required(ErrorMessage = "Title can't be empty.")]
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
-        [Required(ErrorMessage = "Status can't be empty.")]
-        [EnumDataType(typeof(TasksStatus), ErrorMessage = "The selected task status is invalid.")]
-        public TasksStatus Status { get; set; }
         [Required(ErrorMessage = "Priority can't be empty.")]
         [EnumDataType(typeof(TaskPriority), ErrorMessage = "The selected task priority is invalid.")]
         public TaskPriority Priority { get; set; }
+        [Required(ErrorMessage = "Due date can't be empty.")]
+        [YearGreaterThan(2020)]
+        public DateTime DuoDate { get; set; }
         [JsonIgnore]
         public int UserId { get; set; }
     }

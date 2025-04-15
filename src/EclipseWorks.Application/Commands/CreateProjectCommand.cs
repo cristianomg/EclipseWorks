@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EclipseWorks.Application.Commands.Project
+namespace EclipseWorks.Application.Commands
 {
     public record CreateProjectCommand : IRequest
     {

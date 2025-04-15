@@ -13,5 +13,6 @@ namespace EclipseWorks.Domain.Repositories
         Task Add(TEntity entity);
         Task Update(TEntity entity);
         Task Remove(TEntity entity);
+        Task<bool> Any(Expression<Func<TEntity, bool>> predicate);
     }
 }

@@ -2,14 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace EclipseWorks.Application.Commands.Task
+namespace EclipseWorks.Application.Commands
 {
-    public record UpdateTaskCommand : IRequest
+    public record DeleteTaskCommand : IRequest
     {
         [Range(1, int.MaxValue, ErrorMessage = "Task id is required.")]
         public int TaskId { get; set; }
-        public TaskStatus? Status { get; set; }
-        public string Description { get; set; }
         [JsonIgnore]
         public int UserId { get; set; }
     }

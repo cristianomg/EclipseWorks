@@ -20,6 +20,11 @@ namespace EclipseWorks.Infrastructure.Repositories
             return _context.SaveChangesAsync();
         }
 
+        public Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.AnyAsync(predicate);
+        }
+
         public Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return _dbSet.Where(predicate).ToListAsync();
