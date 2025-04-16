@@ -19,17 +19,18 @@ namespace EclipseWorks.Infrastructure.Repositories
             _dbSet.Add(entity);
             return _context.SaveChangesAsync();
         }
-
         public Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
         {
             return _dbSet.AnyAsync(predicate);
         }
-
-        public Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
+        public Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return _dbSet.Where(predicate).ToListAsync();
-        }
+            IQueryable<TEntity> query = _dbSet;
+            foreach (var includeProperty in includeProperties)
+                query = query.Include(includeProperty);
 
+            return query.Where(predicate).ToListAsync();
+        }
         public Task<List<TEntity>> GetAll()
         {
             return _dbSet.ToListAsync();
@@ -42,7 +43,6 @@ namespace EclipseWorks.Infrastructure.Repositories
                 query = query.Include(includeProperty);
             return query.ToListAsync();
         }
-
         public ValueTask<TEntity?> GetById(int id)
         {
             return _dbSet.FindAsync(id);

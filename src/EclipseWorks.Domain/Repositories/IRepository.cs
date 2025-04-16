@@ -9,7 +9,7 @@ namespace EclipseWorks.Domain.Repositories
         Task<TEntity?> GetById(int id, params Expression<Func<TEntity, object>>[] includeProperties);
         Task<List<TEntity>> GetAll();
         Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties);
-        Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
         Task Add(TEntity entity);
         Task Update(TEntity entity);
         Task Remove(TEntity entity);

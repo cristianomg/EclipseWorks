@@ -18,6 +18,11 @@ namespace EclipseWorks.Api.Controllers
             _taskRepository = taskRepository;
             _mediator = mediator;
         }
+        /// <summary>
+        /// Retorna comentários por task
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <returns></returns>
         [HttpGet("{taskId}")]
         public async Task<IActionResult> GetCommentsByTaskId([FromRoute] int taskId)
         {
@@ -27,10 +32,19 @@ namespace EclipseWorks.Api.Controllers
 
             return Ok(task.Comments);
         }
+        /// <summary>
+        /// Adiciona um comentário para uma task
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="userId"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
 
         [HttpPost("{taskId}")]
         public async Task<IActionResult> AddComment([FromRoute] int taskId, [FromHeader] int userId, [FromBody] AddCommentCommand command)
         {
+            if(!ModelState.IsValid) return BadRequest();
+
             command.UserId = userId;
             command.TaskId = taskId;
 

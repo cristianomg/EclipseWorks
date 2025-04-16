@@ -22,6 +22,9 @@ namespace EclipseWorks.Infrastructure.Mapping
                 .HasColumnName("NAME")
                 .IsRequired();
 
+            builder.HasIndex(x => new { x.Name, x.UserId })
+                .IsUnique();
+
             builder.Property(x => x.UserId)
                 .HasColumnName("USER_ID")
                 .IsRequired();

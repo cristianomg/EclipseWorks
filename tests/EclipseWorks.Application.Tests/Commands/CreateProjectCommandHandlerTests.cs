@@ -45,7 +45,7 @@ namespace EclipseWorks.Application.Tests.Commands
 
 
             _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Domain.Enums.Role.User));
-            _projectRepositoryMock.Setup(x => x.Any(x => x.Name == command.Name)).ReturnsAsync(true);
+            _projectRepositoryMock.Setup(x => x.Any(x => x.Name == command.Name && x.UserId == command.UserId)).ReturnsAsync(true);
 
             //Act & Assert
             var exception = await Assert.ThrowsAsync<ProjectNameInUseException>(() => _handler.Handle(command, CancellationToken.None));

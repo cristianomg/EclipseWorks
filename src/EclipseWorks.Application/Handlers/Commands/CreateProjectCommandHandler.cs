@@ -19,7 +19,7 @@ namespace EclipseWorks.Application.Handlers.Commands
         {
             var user = await _userRepository.GetById(request.UserId) ?? throw new NotFoundException("User not found.");
 
-            var nameAlreadyInUse = await _projectRepository.Any(x => x.Name == request.Name);
+            var nameAlreadyInUse = await _projectRepository.Any(x => x.Name == request.Name && x.UserId == request.UserId);
 
             if (nameAlreadyInUse)
             {
