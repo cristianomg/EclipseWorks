@@ -1,5 +1,7 @@
 using EclipseWorks.Api.Extensions;
 using EclipseWorks.Api.Middlewares;
+using EclipseWorks.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,4 +26,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    dbContext.Database.Migrate();
+}
+
 app.Run();
+
