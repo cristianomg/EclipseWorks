@@ -34,11 +34,14 @@ namespace EclipseWorks.Application.Handlers.Queries
 
             var completedTasksPerUserDtos = await _taskRepository.GetCompletedTasksReportLast30Days();
 
+            var average = completedTasksPerUserDtos.Count() == 0 ?
+                0 :
+                Math.Round(completedTasksPerUserDtos.Average(x => x.Count), 1, MidpointRounding.AwayFromZero);
 
             return new GetCompletedTasksCountByUserLast30DaysQueryResponse
             {
                 CompletedTasksPerUser = completedTasksPerUserDtos,
-                Average = Math.Round(completedTasksPerUserDtos.Average(x => x.Count), 1, MidpointRounding.AwayFromZero)
+                Average = average
             };
         }
     }
