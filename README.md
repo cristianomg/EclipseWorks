@@ -27,9 +27,7 @@ API RESTful para gerenciamento de projetos e tarefas, desenvolvida como parte de
 
 ## 💼 Requisitos para execução
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
 - Docker
-- Banco de dados: PostgreSQL / SQL Server
 
 ### 📦 Rodando com Docker
 
