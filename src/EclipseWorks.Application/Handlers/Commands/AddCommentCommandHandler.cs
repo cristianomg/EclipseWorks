@@ -25,7 +25,7 @@ namespace EclipseWorks.Application.Handlers.Commands
             var user = await _userRepository.GetById(request.UserId) ?? throw new NotFoundException("User not found.");
             var task = await _taskRepository.GetById(request.TaskId, x => x.Comments) ?? throw new NotFoundException("Task not found.");
 
-            if (string.IsNullOrEmpty(request.Comment))
+            if (string.IsNullOrEmpty(request.Comment) || string.IsNullOrWhiteSpace(request.Comment))
             {
                 throw new CommentRequiredException("The comment is required.");
             }
@@ -34,7 +34,7 @@ namespace EclipseWorks.Application.Handlers.Commands
 
             await _taskRepository.Update(task);
 
-            _ = _mediator.Publish(MapToUpdatedTaskNotification(request, user.Name));
+            _ = _mediator.Publish(MapToUpdatedTaskNotification(request, user.Name), cancellationToken);
         }
 
         private UpdatedTaskNotification MapToUpdatedTaskNotification(AddCommentCommand request, string updatedByUser)

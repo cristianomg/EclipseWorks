@@ -1,5 +1,6 @@
 ﻿using EclipseWorks.Application.Commands;
 using EclipseWorks.Application.Handlers.Commands;
+using EclipseWorks.Application.Notifications;
 using EclipseWorks.Domain.Entities;
 using EclipseWorks.Domain.Enums;
 using EclipseWorks.Domain.Exceptions;
@@ -98,9 +99,13 @@ namespace EclipseWorks.Application.Tests.Commands
             _userRepositoryMock.Setup(x => x.GetById(command.UserId)).ReturnsAsync(new User(1, "Test User", Role.User));
             _taskRepositoryMock.Setup(x => x.GetById(command.TaskId, x => x.Project)).ReturnsAsync(task);
 
-            //Act & Assert
+            //Act
             await _handler.Handle(command, CancellationToken.None);
+
+            //Assert
             _taskRepositoryMock.Verify(x=>x.Update(task), Times.Once);
+            _mediatorMock.Verify(x => x.Publish(It.IsAny<UpdatedTaskNotification>(), It.IsAny<CancellationToken>()), Times.Once);
+
         }
 
     }
