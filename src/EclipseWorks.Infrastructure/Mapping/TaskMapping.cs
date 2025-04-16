@@ -73,6 +73,11 @@ namespace EclipseWorks.Infrastructure.Mapping
                 .HasForeignKey(x => x.TaskId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(x => x.Comments)
+                .WithOne()
+                .HasForeignKey(x => x.TaskId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

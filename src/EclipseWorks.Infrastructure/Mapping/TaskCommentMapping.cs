@@ -36,6 +36,10 @@ namespace EclipseWorks.Infrastructure.Mapping
                 .IsRequired()
                 .HasColumnName("VALUE")
                 .HasColumnType("VARCHAR(500)");
+
+            builder.Property(x => x.TaskId)
+                .IsRequired()
+                .HasColumnName("TASK_ID");
         }
     }
 }
