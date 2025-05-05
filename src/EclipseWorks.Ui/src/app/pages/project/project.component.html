@@ -1,0 +1,59 @@
+<mat-drawer-container class="drawer-container">
+  
+  <!-- Drawer lateral com detalhes da tarefa -->
+  <mat-drawer #drawer mode="side" position="end" [(opened)]="isDrawerOpen">
+    <h2>Detalhes da Tarefa</h2>
+    <p><strong>Título:</strong> {{ selectedTask?.title }}</p>
+    <p><strong>Descrição:</strong> {{ selectedTask?.description }}</p>
+    <p><strong>Status:</strong> {{ selectedTask?.status }}</p>
+    <p><strong>Prioridade:</strong> {{ selectedTask?.priority }}</p>
+    <button mat-button (click)="closeDrawer()">Fechar</button>
+  </mat-drawer>
+
+<div class="container">
+    <div class="header">
+      <h1>Tarefas do projeto {{project?.name}}</h1>
+      <button mat-flat-button color="primary" (click)="createTask()">
+        <mat-icon>add</mat-icon> Nova Tarefa
+      </button>
+    </div>
+  
+    <div class="board">
+      <div class="column pending" 
+       cdkDropList 
+       [cdkDropListData]="pendingTasks"
+       [cdkDropListConnectedTo]="[inProgressList, completedList]"
+       (cdkDropListDropped)="changeStatus($event, PENDING_TASK_STATUS)" 
+       #pendingList="cdkDropList">
+        <h3>Pendente</h3>
+        <div *ngFor="let task of pendingTasks" cdkDrag>
+          <app-task-card [task]="task" (onDelete)="onDelete()" (click)="openDrawer(task)"></app-task-card>
+        </div>
+      </div>
+  
+      <div class="column in-progress" 
+      cdkDropList 
+      [cdkDropListData]="inProgressTasks"  
+      [cdkDropListConnectedTo]="[pendingList, completedList]"
+      (cdkDropListDropped)="changeStatus($event, IN_PROGRESS_TASK_STATUS)" 
+        #inProgressList="cdkDropList">
+        <h3>Em andamento</h3>
+        <div *ngFor="let task of inProgressTasks" cdkDrag>
+          <app-task-card [task]="task" (onDelete)="onDelete()" (click)="openDrawer(task)"></app-task-card>
+        </div>
+      </div>
+  
+      <div class="column completed"  
+      cdkDropList 
+      [cdkDropListData]="completedTasks" 
+      [cdkDropListConnectedTo]="[pendingList, inProgressList]"
+      (cdkDropListDropped)="changeStatus($event, COMPLETED_TASK_STATUS)"
+      #completedList="cdkDropList">
+        <h3>Concluído</h3>
+        <div *ngFor="let task of completedTasks" cdkDrag>
+          <app-task-card [task]="task" (onDelete)="onDelete()" (click)="openDrawer(task)"></app-task-card>
+        </div>
+      </div> 
+    </div>
+  </div>
+  

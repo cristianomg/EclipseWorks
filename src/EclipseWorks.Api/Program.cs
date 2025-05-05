@@ -21,6 +21,8 @@ var app = builder.Build();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors();
+
 
 app.UseAuthorization();
 

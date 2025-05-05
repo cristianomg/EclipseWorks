@@ -35,7 +35,7 @@ namespace EclipseWorks.Application.Handlers.Commands
                 throw new TaskLimitExceededException(MAX_TASKS_PER_PROJECT);
             }
 
-            var task = new Tasks(project.Id, request.Title, request.Description, request.DuoDate, request.Priority);
+            var task = new Tasks(project.Id, request.Title, request.Description, request.DueDate, request.Priority);
 
             await _taskRepository.Add(task);
         }

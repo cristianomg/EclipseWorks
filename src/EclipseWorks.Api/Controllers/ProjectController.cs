@@ -29,6 +29,24 @@ namespace EclipseWorks.Api.Controllers
 
             return Ok(projects);
         }
+
+        /// <summary>
+        /// Returns project by id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id, [FromHeader] int userId)
+        {
+            var project = await _repository.GetById(id);
+
+            if (project != null && project.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(project);
+        }
         /// <summary>
         /// Creates a new project for the user.
         /// </summary>

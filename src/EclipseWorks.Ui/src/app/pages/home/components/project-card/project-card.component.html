@@ -1,0 +1,14 @@
+<mat-card class="project-card"  [routerLink]="['/project', project.id]">
+    <div class="card-header">
+        <span class="project-card-title" [routerLink]="['/project', project.id]">{{ project.name }}</span>
+        <button mat-icon-button color="warn" (click)="deleteProject(project.id); $event.stopPropagation();">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    <mat-card-content class="project-card-content">
+
+    </mat-card-content>
+    <mat-card-subtitle class="project-card-subtitle" [routerLink]="['/project', project.id]">
+      Criado em: {{ project.createdAt | date:'dd/MM/yyyy' }}
+    </mat-card-subtitle>
+  </mat-card>
