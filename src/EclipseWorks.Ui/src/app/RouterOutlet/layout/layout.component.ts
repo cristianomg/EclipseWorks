@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MatToolbarModule, BreadcrumbComponent],
+  imports: [CommonModule, RouterOutlet, MatToolbarModule, BreadcrumbComponent, MatButtonModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
