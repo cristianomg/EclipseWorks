@@ -1,0 +1,26 @@
+.task-card {
+    position: relative;
+    padding: 15px;
+
+    &-title {
+        color: white;
+    }
+    &-description{
+        color: white;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    
+    &:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+}
+  

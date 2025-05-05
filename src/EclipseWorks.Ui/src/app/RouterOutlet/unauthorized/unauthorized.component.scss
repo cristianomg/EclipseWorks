@@ -1,0 +1,21 @@
+.unauthorized-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    mat-card {
+      padding: 2rem;
+      text-align: center;
+  
+      h2 {
+        margin-bottom: 1rem;
+        color: #c62828;
+      }
+
+      p {
+        color: white
+      }
+    }
+  }
+  

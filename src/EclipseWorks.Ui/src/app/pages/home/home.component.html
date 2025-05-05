@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="header">
+      <h1>Meus projetos</h1>
+      <button mat-flat-button color="primary" (click)="createProject()">
+        <mat-icon>add</mat-icon> Novo Projeto
+      </button>
+    </div>
+  
+    <div class="card-list">
+      <app-project-card *ngFor="let project of projects" [project]="project" (onDelete)="onDelete()"></app-project-card>
+    </div>
+</div>

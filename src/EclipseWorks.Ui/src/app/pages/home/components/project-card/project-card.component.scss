@@ -1,0 +1,20 @@
+.project-card {
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    &-title {
+        color: white;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    &:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+}
+  

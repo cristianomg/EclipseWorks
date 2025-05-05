@@ -1,0 +1,14 @@
+<mat-card class="task-card">
+    <div class="card-header">
+        <mat-card-title class="task-card-title">{{ task.title }}</mat-card-title>
+        <button mat-icon-button color="warn" (click)="deleteTask(task.id); $event.stopPropagation();">
+            <mat-icon>delete</mat-icon>
+            </button>
+    </div>
+    <mat-card-content>
+        <span class="task-card-description">{{ task.description }}</span>
+        <!-- <mat-card-subtitle>
+            Criado em: {{ task.createdAt | date:'dd/MM/yyyy' }}
+        </mat-card-subtitle> -->
+    </mat-card-content>
+</mat-card>

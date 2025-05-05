@@ -18,7 +18,7 @@ namespace EclipseWorks.Application.Commands
         public TaskPriority Priority { get; set; }
         [Required(ErrorMessage = "Due date can't be empty.")]
         [YearGreaterThan(2020)]
-        public DateTime DuoDate { get; set; }
+        public DateTime DueDate { get; set; }
         [JsonIgnore]
         public int UserId { get; set; }
     }

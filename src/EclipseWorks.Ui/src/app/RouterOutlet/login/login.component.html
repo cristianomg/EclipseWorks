@@ -1,0 +1,21 @@
+<div class="login-container">
+    <mat-card>
+      <form (ngSubmit)="login()">
+        <h2 class="login-container-header">Login</h2>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Selecione um usuário</mat-label>
+          <mat-select [(value)]="selectedUsuario" required>
+            <mat-option *ngFor="let user of users" [value]="user.id">
+              {{ user.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit" [disabled]="!selectedUsuario">
+          Login
+        </button>
+      </form>
+    </mat-card>
+</div>
+  
