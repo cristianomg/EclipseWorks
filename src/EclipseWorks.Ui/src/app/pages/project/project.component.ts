@@ -15,11 +15,12 @@ import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/dra
 import { CreateTaskComponent } from './create-task/create-task.component';
 import {MatSidenavModule} from '@angular/material/sidenav'
 import { forkJoin, map, Observable, Subject, takeUntil } from 'rxjs';
+import { TaskDrawerComponent } from './components/task-drawer/task-drawer.component';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, RouterModule, TaskCardComponent, DragDropModule, MatSidenavModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatDialogModule, RouterModule, TaskCardComponent, DragDropModule, MatSidenavModule, TaskDrawerComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
 })
@@ -145,7 +146,11 @@ export class ProjectComponent implements OnInit, OnDestroy  {
   }
 
   onDelete() {
-    this.getTasks(this.projectId!).pipe(takeUntil(this.destroy$)).subscribe();
+    this.getTasks(this.projectId!).pipe(takeUntil(this.destroy$)).subscribe({
+      next: res => {
+        this.closeDrawer();
+      }
+    });
   }
 
 

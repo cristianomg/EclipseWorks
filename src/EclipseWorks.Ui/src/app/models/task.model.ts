@@ -1,4 +1,5 @@
 import { Project } from "./project.model";
+import { TaskComment } from "./task-comment.model";
 
 export interface Task {
     id: number,
@@ -10,7 +11,7 @@ export interface Task {
     status: TaskStatus,
     project: Project | null,
     histories: any[],
-    comments: any[]
+    comments: TaskComment[]
     createdAt: Date,
     updatedAt: Date,
 }
