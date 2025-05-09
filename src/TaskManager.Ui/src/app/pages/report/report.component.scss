@@ -1,0 +1,75 @@
+/* Container principal ocupa toda a altura da tela */
+.sidenav-container {
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  /* Sidenav com fundo branco, sem borda arredondada */
+  .sidenav {
+    width: 280px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    padding-top: 16px;
+    border-radius: 0; /* garante que não haja borda arredondada */
+  }
+  
+  /* Item selecionado */
+  .selected {
+    background-color: #e3f2fd;
+    border-left: 4px solid black;
+    font-weight: 600;
+    color: black;
+  }
+  
+  /* Conteúdo principal com espaçamento */
+  .content {
+    padding: 24px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  /* Estilo base dos itens de menu */
+  mat-list-item, a.mat-list-item {
+    font-size: 15px;
+    color: #000; /* texto preto */
+    border-radius: 0; /* sem arredondamento */
+    opacity: 1 !important; 
+    margin: 4px 8px;
+    text-decoration: none;
+  }
+
+  :host ::ng-deep .mdc-list-item__primary-text {
+    color: #000 !important;
+    opacity: 1 !important;
+  }
+  
+  
+  /* Tabela com largura total */
+  table {
+    width: 100%;
+    margin-top: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  /* Card com sombra suave */
+  mat-card {
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  
+  /* Cabeçalhos da tabela */
+  th.mat-header-cell {
+    font-weight: 600;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Linhas da tabela */
+  td.mat-cell {
+    color: #333;
+    border-bottom: 1px solid #eee;
+  }
+  
