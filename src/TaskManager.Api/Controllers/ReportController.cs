@@ -30,5 +30,15 @@ namespace TaskManager.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("DelayedTasksByUsers")]
+        public async Task<IActionResult> GetDelayerdTasksByUsers([FromHeader] int userId)
+        {
+            var query = new GetDelayerdTasksByUsersQuery
+            {
+                UserId = userId
+            };
+
+            return Ok(await _mediator.Send(query));
+        }
     }
 }

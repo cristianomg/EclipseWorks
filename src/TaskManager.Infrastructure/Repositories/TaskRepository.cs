@@ -34,5 +34,25 @@ namespace TaskManager.Infrastructure.Repositories
 
             return tasks;
         }
+
+        public async Task<List<DelayedTasksByUser>> GetDelayerdTasksByUsers()
+        {
+            var now = DateTime.UtcNow;
+
+            var tasks = await _dbSet
+                .Where(x => x.Status != TasksStatus.Completed)
+                .Where(x => x.DueDate <= now)
+                .Include(x => x.Project)
+                    .ThenInclude(x => x.User)
+                .GroupBy(x => x.Project.User)
+                .Select(x => new DelayedTasksByUser
+                {
+                    UserName = x.Key.Name,
+                    Count = x.Count()
+                })
+                .ToListAsync();
+
+            return tasks;
+        }
     }
 }
