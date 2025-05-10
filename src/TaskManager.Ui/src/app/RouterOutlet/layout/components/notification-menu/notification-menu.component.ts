@@ -32,7 +32,7 @@ export class NotificationMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getNotification();
 
-    interval(30000)
+    interval(5000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getNotification();
