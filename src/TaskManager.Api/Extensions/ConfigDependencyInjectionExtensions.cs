@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Application.Workers;
 using TaskManager.Domain.Repositories;
 using TaskManager.Infrastructure;
 using TaskManager.Infrastructure.Repositories;
@@ -27,6 +28,9 @@ namespace TaskManager.Api.Extensions
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITaskHistoryRepository, TaskHistoryRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+
+            services.AddHostedService<CheckTaskDueDateWorker>();
 
             return services;
         }

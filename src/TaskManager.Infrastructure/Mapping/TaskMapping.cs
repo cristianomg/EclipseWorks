@@ -64,6 +64,11 @@ namespace TaskManager.Infrastructure.Mapping
               .HasColumnType("timestamp with time zone")
               .IsRequired(false);
 
+            builder.Property(x => x.Delayed)
+                .IsRequired()
+                .HasColumnName("DELAYED")
+                .HasDefaultValue(false);
+
             builder.HasOne(x => x.Project)
                 .WithMany(x => x.Tasks)
                 .HasForeignKey(x => x.ProjectId);
@@ -77,7 +82,6 @@ namespace TaskManager.Infrastructure.Mapping
                 .WithOne()
                 .HasForeignKey(x => x.TaskId)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

@@ -1,0 +1,39 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="notificationsMenu"
+  #notificationTrigger="matMenuTrigger"
+>
+  
+  <mat-icon *ngIf="notReadNotifications.length > 0" [matBadge]="notReadNotifications.length">notifications</mat-icon>
+  <mat-icon *ngIf="notReadNotifications.length == 0">notifications</mat-icon>
+</button>
+
+<mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" [hasBackdrop]="true">
+  <ng-template matMenuContent>
+    <div class="notification-section">
+      <h4>Não Lidas</h4>
+      <mat-divider></mat-divider>
+      <ng-container *ngFor="let notification of notReadNotifications">
+        <div
+          class="notification-item"
+          style="cursor: pointer; padding: 8px;"
+          (click)="markAsRead(notification, $event)"
+        >
+          <div class="notification-text">{{ notification.value }}</div>
+          <div class="notification-time">{{ notification.createdAt | timeAgo }}</div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="notification-section">
+      <h4>Tudo</h4>
+      <mat-divider></mat-divider>
+      <ng-container *ngFor="let notification of allNotifications">
+        <div class="notification-item" style="padding: 8px;">
+          <div class="notification-text">{{ notification.value }}</div>
+          <div class="notification-time">{{ notification.createdAt | timeAgo }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-template>
+</mat-menu>

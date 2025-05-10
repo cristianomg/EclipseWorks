@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TaskManager.Infrastructure;
@@ -11,9 +12,11 @@ using TaskManager.Infrastructure;
 namespace TaskManager.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250510120652_ADD_NOTIFICATION_TABLE")]
+    partial class ADD_NOTIFICATION_TABLE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,12 +233,6 @@ namespace TaskManager.Infrastructure.Migrations
                         .HasColumnName("CREATED_AT")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<bool>("Delayed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("DELAYED");
-
                     b.Property<string>("Description")
                         .HasColumnType("VARCHAR(500)")
                         .HasColumnName("DESCRIPTION");
@@ -313,35 +310,35 @@ namespace TaskManager.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 5, 10, 15, 23, 19, 789, DateTimeKind.Utc).AddTicks(7884),
+                            CreatedAt = new DateTime(2025, 5, 10, 12, 6, 52, 72, DateTimeKind.Utc).AddTicks(4148),
                             Name = "Usuario 1",
                             Role = "User"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 5, 10, 15, 23, 19, 789, DateTimeKind.Utc).AddTicks(7888),
+                            CreatedAt = new DateTime(2025, 5, 10, 12, 6, 52, 72, DateTimeKind.Utc).AddTicks(4151),
                             Name = "Usuario 2",
                             Role = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 5, 10, 15, 23, 19, 789, DateTimeKind.Utc).AddTicks(7889),
+                            CreatedAt = new DateTime(2025, 5, 10, 12, 6, 52, 72, DateTimeKind.Utc).AddTicks(4151),
                             Name = "Usuario 3",
                             Role = "User"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 5, 10, 15, 23, 19, 789, DateTimeKind.Utc).AddTicks(7889),
+                            CreatedAt = new DateTime(2025, 5, 10, 12, 6, 52, 72, DateTimeKind.Utc).AddTicks(4182),
                             Name = "Usuario 4",
                             Role = "User"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 5, 10, 15, 23, 19, 789, DateTimeKind.Utc).AddTicks(7890),
+                            CreatedAt = new DateTime(2025, 5, 10, 12, 6, 52, 72, DateTimeKind.Utc).AddTicks(4183),
                             Name = "Usuario Gerente 1",
                             Role = "Manager"
                         });

@@ -6,24 +6,24 @@ import { BreadcrumbComponent } from '../../components/breadcrumb/breadcrumb.comp
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../services/user.service';
 import { UserRole } from '../../models/user.model';
-import {MatMenuModule} from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MatToolbarModule, BreadcrumbComponent, MatButtonModule, MatMenuModule, MatIconModule, RouterModule],
+  imports: [CommonModule, RouterOutlet, MatToolbarModule, BreadcrumbComponent, MatButtonModule, MatIconModule, RouterModule, NotificationMenuComponent, MatMenuModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
-export class LayoutComponent {
+export class LayoutComponent{
 
   constructor(private readonly router: Router,
-    private readonly userService: UserService
-  ) {
+    private readonly userService: UserService) {
     
   }
-
   logout() {
     this.userService.clearUser();
     this.router.navigate(['/login']);

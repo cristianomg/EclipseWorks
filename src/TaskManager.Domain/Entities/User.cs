@@ -12,5 +12,6 @@ namespace TaskManager.Domain.Entities
         }
         public string Name { get; private set; }
         public Role Role { get; private set; }
+        public virtual List<Notification> Notifications { get; set; } = new List<Notification>();
     }
 }

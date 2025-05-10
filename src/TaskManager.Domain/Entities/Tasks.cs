@@ -19,6 +19,7 @@ namespace TaskManager.Domain.Entities
         public DateTime DueDate { get; private set; }
         public TaskPriority Priority { get; set; }
         public TasksStatus Status { get; private set; }
+        public bool Delayed { get; private set; } = false;
         public virtual Project? Project { get; private set; }
         public virtual List<TaskHistory> Histories { get; private set; } = new List<TaskHistory>();
         public virtual List<TaskComment> Comments { get; private set; } = new List<TaskComment>();
@@ -29,6 +30,11 @@ namespace TaskManager.Domain.Entities
             Description = description;
             Status = status;
             UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void MarkAsDelayed()
+        {
+            Delayed = true;
         }
     }
 }

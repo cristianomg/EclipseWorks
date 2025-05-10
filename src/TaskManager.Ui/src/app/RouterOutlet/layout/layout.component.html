@@ -2,12 +2,16 @@
     <mat-toolbar color="primary">
       <span class="app-title">Gerenciador de tarefas</span>
       <span class="spacer"></span>
-      <button mat-button [matMenuTriggerFor]="menu">
+      <!-- Notificações -->
+      <app-notification-menu></app-notification-menu>
+
+      <!-- Configurações -->
+      <button mat-button [matMenuTriggerFor]="settings">
         <mat-icon>
           settings
       </mat-icon>
     </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #settings="matMenu">
         <button mat-menu-item color="primary" *ngIf="isManager()" [routerLink]="['/report']">Relatórios</button>
         <button mat-menu-item color="accent" (click)="logout()">Sair</button>
       </mat-menu>
