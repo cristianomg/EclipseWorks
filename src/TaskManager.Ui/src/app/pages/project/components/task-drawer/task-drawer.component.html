@@ -1,59 +1,52 @@
 <mat-drawer *ngIf="task" class="task-drawer-container" #drawer mode="side" position="end" [(opened)]="opened">
 
-    <div class="drawer-header">
-      <h2>{{ task.title }}</h2>
-      <button mat-icon-button class="close-btn" (click)="onClose.emit()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-  
-    <div class="drawer-body">
-  
-      <section class="task-section">
-        <h3>Prioridade</h3>
-        <app-task-priority-chip [priority]="task.priority"></app-task-priority-chip>
-      </section>
-      <section class="task-section">
-        <h3>Descrição</h3>
-        <p class="description">{{ task.description }}</p>
-      </section>
-      <section class="task-section">
-        <h3>Datas</h3>
-        <p>Criado em: {{ task.createdAt | date:'dd/MM/yyyy' }}</p>
-        <p>Última atualização: {{ task.updatedAt | date:'dd/MM/yyyy' }}</p>
-      </section>
-      <section class="task-section">
-        <h4>Comentários</h4>
+  <div class="drawer-header">
+    <h2>{{ task.title }}</h2>
+    <button mat-icon-button class="close-btn" (click)="onClose.emit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 
-        <div *ngIf="task.comments.length === 0">Nenhum comentário ainda.</div>
-        <div *ngFor="let comment of task.comments" class="comment">
-          <p>{{ comment.value }}</p>
+  <div class="drawer-body">
+
+    <section class="task-section">
+      <h3>Prioridade</h3>
+      <app-task-priority-chip [priority]="task.priority"></app-task-priority-chip>
+    </section>
+    <section class="task-section">
+      <h3>Descrição</h3>
+      <p class="description">{{ task.description }}</p>
+    </section>
+    <section class="task-section">
+      <h3>Datas</h3>
+      <p>Criado em: {{ task.createdAt | date:'dd/MM/yyyy' }}</p>
+      <p>Última atualização: {{ task.updatedAt | date:'dd/MM/yyyy' }}</p>
+    </section>
+    <section class="task-section">
+      <h4>Comentários</h4>
+
+      <div *ngIf="task.comments.length === 0">Nenhum comentário ainda.</div>
+      <div *ngFor="let comment of task.comments" class="comment">
+        <p [innerHTML]="formatTextToHtmlWithLink(comment.value)"></p>
+      </div>
+
+      <div *ngIf="!isAddingComment">
+        <button mat-stroked-button color="primary" (click)="isAddingComment = true">Adicionar comentário</button>
+      </div>
+
+      <div *ngIf="isAddingComment" class="comment-form">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Comentário</mat-label>
+          <textarea matInput [(ngModel)]="newComment" maxlength="500" rows="4" cdkTextareaAutosize></textarea>
+          <mat-hint align="end">{{ newComment.length }}/500</mat-hint>
+        </mat-form-field>
+
+        <div class="comment-buttons">
+          <button mat-flat-button color="primary" (click)="submitComment()">Enviar</button>
+          <button mat-button (click)="cancelComment()">Cancelar</button>
         </div>
-  
-        <div *ngIf="!isAddingComment">
-          <button mat-stroked-button color="primary" (click)="isAddingComment = true">Adicionar comentário</button>
-        </div>
-  
-        <div *ngIf="isAddingComment" class="comment-form">
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Comentário</mat-label>
-            <textarea
-              matInput
-              [(ngModel)]="newComment"
-              maxlength="500"
-              rows="4"
-              cdkTextareaAutosize
-            ></textarea>
-            <mat-hint align="end">{{ newComment.length }}/500</mat-hint>
-          </mat-form-field>
-  
-          <div class="comment-buttons">
-            <button mat-flat-button color="primary" (click)="submitComment()">Enviar</button>
-            <button mat-button (click)="cancelComment()">Cancelar</button>
-          </div>
-        </div>
-      </section>
-  
-    </div>
-  </mat-drawer>
-  
+      </div>
+    </section>
+
+  </div>
+</mat-drawer>
