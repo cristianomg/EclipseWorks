@@ -1,6 +1,6 @@
 import { User } from "./user.model";
 
-export interface NotificationEntity{
+export interface NotificationEntity {
     value: string,
     userId: Number,
     read: boolean,
@@ -8,4 +8,5 @@ export interface NotificationEntity{
     user: User,
     id: Number,
     createdAt: Date,
+    redirectUrl: string
 }

@@ -10,6 +10,7 @@ import { NotificationService } from '../../../../services/notification.service';
 import { interval, Subject, takeUntil } from 'rxjs';
 import { NotificationEntity } from '../../../../models/notification.model';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class NotificationMenuComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly router: Router
   ) { }
 
   notReadNotifications: NotificationEntity[] = []
@@ -53,16 +55,25 @@ export class NotificationMenuComponent implements OnInit, OnDestroy {
     })
   }
 
-  markAsRead(notification: NotificationEntity, event: MouseEvent) {
+  onClick(notification: NotificationEntity, event: MouseEvent) {
     event.stopPropagation();
     if (!notification) {
       return;
     }
 
-    this.notificationService.markAsRead(notification.id).pipe(takeUntil(this.destroy$)).subscribe({
-      next: res => {
-        this.getNotification();
-      }
-    })
+    if (!notification.read) {
+      this.notificationService.markAsRead(notification.id).pipe(takeUntil(this.destroy$)).subscribe({
+        next: res => {
+          this.getNotification();
+        }
+      })
+    }
+    this.redirectNotification(notification);
+  }
+
+  redirectNotification(notification: NotificationEntity) {
+    if (notification.redirectUrl) {
+      window.open(notification.redirectUrl, '_blank');
+    }
   }
 }

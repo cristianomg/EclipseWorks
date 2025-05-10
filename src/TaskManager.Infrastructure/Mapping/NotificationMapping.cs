@@ -41,6 +41,11 @@ namespace TaskManager.Infrastructure.Mapping
                 .HasColumnName("READ_AT")
                 .HasColumnType("timestamp with time zone");
 
+            builder.Property(x => x.RedirectUrl)
+                .IsRequired(false)
+                .HasColumnName("REDIRECT_URL")
+                .HasColumnType("VARCHAR(1000)");
+
             builder.HasOne(x=>x.User)
                 .WithMany(x=>x.Notifications)
                 .HasForeignKey(x=>x.UserId);    

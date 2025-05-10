@@ -31,7 +31,7 @@ namespace TaskManager.Application.Handlers.Commands
                     continue;
                 }
 
-                user.Notifications.Add(new Notification(request.Message));
+                user.Notifications.Add(new Notification(request.Message, request.RedirectUrl));
 
                 await _userRepository.Update(user);
             }

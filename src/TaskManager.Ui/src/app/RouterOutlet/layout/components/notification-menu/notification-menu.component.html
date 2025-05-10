@@ -4,7 +4,7 @@
   <mat-icon *ngIf="notReadNotifications.length == 0">notifications</mat-icon>
 </button>
 
-<mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" [hasBackdrop]="true">
+<mat-menu overlayPanelClass="notifications-menu" #notificationsMenu="matMenu">
   <ng-template matMenuContent>
     <div (click)="$event.stopPropagation()">
       <h4 class="notification-header">Notificações</h4>
@@ -15,9 +15,9 @@
               <div class="notification-item" [ngStyle]="{
               'background-color': !notification.read ? '#e3f2fd' : '',
               'font-weight': !notification.read ? 'bold' : 'normal',
-              'cursor':  !notification.read ? 'pointer' : 'default',
+              'cursor':  'pointer',
               'padding': '8px'
-              }" (click)="!notification.read ? markAsRead(notification, $event) : null">
+              }" (click)="onClick(notification, $event)">
                 <div class="notification-text" [ngStyle]="{
                 'color': !notification.read ? 'black' : 'white',
               }">{{ notification.value }}</div>
@@ -32,9 +32,9 @@
               <div class="notification-item" [ngStyle]="{
               'background-color': !notification.read ? '#e3f2fd' : '',
               'font-weight': !notification.read ? 'bold' : 'normal',
-              'cursor':  !notification.read ? 'pointer' : 'default',
+              'cursor':  'pointer',
               'padding': '8px'
-              }" (click)="!notification.read ? markAsRead(notification, $event) : null">
+              }" (click)="onClick(notification, $event)">
                 <div class="notification-text" [ngStyle]="{
                 'color': !notification.read ? 'black' : 'white',
               }">{{ notification.value }}</div>

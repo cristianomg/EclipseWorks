@@ -55,7 +55,8 @@ namespace TaskManager.Application.Workers
                     await _mediator.Send(new AddNotificationCommand
                     {
                         Message = $"Tarefa '{task.Title}' no projeto '{task.Project!.Name}' está atrasada.",
-                        Users = new int[] { task.Project!.UserId }
+                        Users = new int[] { task.Project!.UserId },
+                        RedirectUrl = $"/project/{task.Project.Id}?taskId={task.Id}"
                     });
 
                     await _taskRepository.Update(task);

@@ -10,5 +10,6 @@ namespace TaskManager.Application.Commands
     {
         public int[] Users { get; set; }
         public string Message { get; set; }
+        public string RedirectUrl { get; set; }
     }
 }
