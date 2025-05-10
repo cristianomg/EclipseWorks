@@ -7,6 +7,11 @@
 .notification-section {
   margin-bottom: 10px;
   padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
 
   h4 {
     color: rgb(228, 166, 166);
