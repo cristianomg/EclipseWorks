@@ -4,7 +4,7 @@
   <mat-icon *ngIf="notReadNotifications.length == 0">notifications</mat-icon>
 </button>
 
-<mat-menu overlayPanelClass="notifications-menu" #notificationsMenu="matMenu">
+<mat-menu class="notifications-menu" #notificationsMenu="matMenu">
   <ng-template matMenuContent>
     <div (click)="$event.stopPropagation()">
       <h4 class="notification-header">Notificações</h4>
