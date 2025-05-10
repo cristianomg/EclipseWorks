@@ -1,5 +1,4 @@
-
-  ::ng-deep .notifications-menu {
+::ng-deep .notifications-menu {
   width: 300px;
   padding: 10px 15px;
 }
@@ -7,7 +6,8 @@
 .notification-section {
   margin-bottom: 10px;
   padding: 10px;
-    h4 {
+
+  h4 {
     color: rgb(228, 166, 166);
   }
 }
@@ -29,3 +29,9 @@
   color: gray;
 }
 
+
+.notification-header {
+  color: rgb(228, 166, 166);
+  padding-left: 10px;
+
+}
