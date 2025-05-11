@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute,  Router,  RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Task, TaskStatus } from '../../models/task.model';
 import { TaskCardComponent } from "./components/task-card/task-card.component";
 import { Project } from '../../models/project.model';
@@ -13,9 +13,10 @@ import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
 import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CreateTaskComponent } from './create-task/create-task.component';
-import {MatSidenavModule} from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav'
 import { forkJoin, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TaskDrawerComponent } from './components/task-drawer/task-drawer.component';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-project',
@@ -24,15 +25,16 @@ import { TaskDrawerComponent } from './components/task-drawer/task-drawer.compon
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
 })
-export class ProjectComponent implements OnInit, OnDestroy  {
+export class ProjectComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly projectService: ProjectService,
     private readonly taskService: TaskService,
     private readonly dialog: MatDialog,
-    private readonly router: Router
-  ) {}
+    private readonly router: Router,
+    private readonly toastService: ToastService
+  ) { }
 
 
   private destroy$ = new Subject<void>()
@@ -40,8 +42,8 @@ export class ProjectComponent implements OnInit, OnDestroy  {
   projectId: Number | null = null
   project: Project | null = null;
   pendingTasks: Task[] = []
-  inProgressTasks : Task[] = []
-  completedTasks : Task[] = []
+  inProgressTasks: Task[] = []
+  completedTasks: Task[] = []
 
   PENDING_TASK_STATUS = TaskStatus.Pending
   IN_PROGRESS_TASK_STATUS = TaskStatus.InProgress
@@ -51,9 +53,9 @@ export class ProjectComponent implements OnInit, OnDestroy  {
   isDrawerOpen = false;
 
   ngOnInit(): void {
-  this.projectId = Number(this.route.snapshot.paramMap.get('id'));
-  const taskId = Number(this.route.snapshot.queryParamMap.get('taskId'));
-  
+    this.projectId = Number(this.route.snapshot.paramMap.get('id'));
+    const taskId = Number(this.route.snapshot.queryParamMap.get('taskId'));
+
     if (this.projectId) {
       forkJoin({
         project: this.getProject(this.projectId),
@@ -65,7 +67,7 @@ export class ProjectComponent implements OnInit, OnDestroy  {
             ...this.inProgressTasks,
             ...this.completedTasks
           ];
-          const openedTask = allTasks.find(x=>x.id === Number(taskId));
+          const openedTask = allTasks.find(x => x.id === Number(taskId));
           if (openedTask) {
             this.openDrawer(openedTask)
           }
@@ -86,30 +88,34 @@ export class ProjectComponent implements OnInit, OnDestroy  {
     }));
   }
 
-  getTasks(projectId: Number): Observable<Task[]>{
-    return this.taskService.getTasksByProjectId(projectId).pipe(map(result=> {
-      this.pendingTasks = result.filter(t=>t.status === this.PENDING_TASK_STATUS);
-        this.inProgressTasks = result.filter(t=>t.status === this.IN_PROGRESS_TASK_STATUS);
-        this.completedTasks = result.filter(t=>t.status === this.COMPLETED_TASK_STATUS);
+  getTasks(projectId: Number): Observable<Task[]> {
+    return this.taskService.getTasksByProjectId(projectId).pipe(map(result => {
+      this.pendingTasks = result.filter(t => t.status === this.PENDING_TASK_STATUS);
+      this.inProgressTasks = result.filter(t => t.status === this.IN_PROGRESS_TASK_STATUS);
+      this.completedTasks = result.filter(t => t.status === this.COMPLETED_TASK_STATUS);
 
-        return result;
+      return result;
     }))
   }
 
   changeStatus(event: CdkDragDrop<Task[]>, newStatus: TaskStatus) {
     if (event.previousContainer === event.container) return;
-  
+
     const task = event.previousContainer.data[event.previousIndex];
-  
+
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
       event.currentIndex
     );
-  
+
     task.status = newStatus;
-    this.taskService.updateTask(task).pipe(takeUntil(this.destroy$)).subscribe();
+    this.taskService.updateTask(task).pipe(takeUntil(this.destroy$)).subscribe({
+      next: res => {
+        this.toastService.showSuccess("Status updated successfully.")
+      }
+    });
   }
 
   createTask() {
@@ -121,7 +127,11 @@ export class ProjectComponent implements OnInit, OnDestroy  {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getTasks(this.projectId!).pipe(takeUntil(this.destroy$)).subscribe();
+        this.getTasks(this.projectId!).pipe(takeUntil(this.destroy$)).subscribe({
+          next: res => {
+            this.toastService.showSuccess("Task created successfully.")
+          }
+        });
       }
     })
   }
@@ -134,11 +144,11 @@ export class ProjectComponent implements OnInit, OnDestroy  {
       queryParamsHandling: 'merge'
     });
   }
-  
+
   closeDrawer() {
     this.isDrawerOpen = false;
     this.selectedTask = null;
-    
+
     this.router.navigate([], {
       queryParams: { taskId: null },
       queryParamsHandling: 'merge'
@@ -149,6 +159,8 @@ export class ProjectComponent implements OnInit, OnDestroy  {
     this.getTasks(this.projectId!).pipe(takeUntil(this.destroy$)).subscribe({
       next: res => {
         this.closeDrawer();
+        this.toastService.showSuccess("Task deleted successfully.")
+
       }
     });
   }
