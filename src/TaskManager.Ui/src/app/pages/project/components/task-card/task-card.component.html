@@ -1,9 +1,14 @@
 <mat-card class="task-card">
     <div class="card-header">
         <mat-card-title class="task-card-title">{{ task.title }}</mat-card-title>
-        <button mat-icon-button color="warn" (click)="deleteTask(task.id); $event.stopPropagation();">
-            <mat-icon>delete</mat-icon>
+        <div>
+            <mat-icon *ngIf="task.delayed" color="warn" class="warning-icon"
+                matTooltip="Tarefa atrasada">priority_high</mat-icon>
+            <button mat-icon-button color="warn" (click)="deleteTask(task.id); $event.stopPropagation();">
+                <mat-icon>delete</mat-icon>
             </button>
+        </div>
+
     </div>
     <mat-card-content>
         <span class="task-card-description">{{ task.description }}</span>

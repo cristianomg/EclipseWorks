@@ -5,7 +5,8 @@
     &-title {
         color: white;
     }
-    &-description{
+
+    &-description {
         color: white;
     }
 
@@ -17,10 +18,13 @@
 
     cursor: pointer;
     transition: box-shadow 0.2s ease;
-    
+
     &:hover {
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
 }
-  
+
+.warning-icon {
+    color: red;
+}

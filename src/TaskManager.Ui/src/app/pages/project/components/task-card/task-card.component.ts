@@ -7,28 +7,29 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../../../services/task.service';
 import { Subject, takeUntil } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule ,MatCardModule, MatButtonModule, MatIconModule, MatDividerModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTooltipModule],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })
 export class TaskCardComponent implements OnDestroy {
-  @Input({required: true}) task!: Task
+  @Input({ required: true }) task!: Task
   @Output() onDelete: EventEmitter<void> = new EventEmitter<void>();
   private destroy$ = new Subject<void>()
 
   constructor(
     private readonly taskService: TaskService
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  
+
   deleteTask(taskId: number) {
     this.taskService.deleteTask(taskId).pipe(takeUntil(this.destroy$)).subscribe({
       next: result => {

@@ -14,6 +14,7 @@ export interface Task {
     comments: TaskComment[]
     createdAt: Date,
     updatedAt: Date,
+    delayed: boolean
 }
 
 
@@ -23,9 +24,8 @@ export enum TaskStatus {
     Completed = 3,
 }
 
-export enum TaskPriority
-{
+export enum TaskPriority {
     Low = 1,
-    Medium = 2, 
+    Medium = 2,
     High = 3,
 }
